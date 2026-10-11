@@ -7,7 +7,7 @@
 ## 基本指令
 - 初始化工作目錄
 ```
-$ terraform init -upgrade
+$ terraform init
 ```
 - 預覽會發生什麼變更
 ```
