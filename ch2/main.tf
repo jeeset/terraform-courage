@@ -24,7 +24,7 @@ data "aws_ami" "ubuntu" {
   }
 }
 
-# 定義EC2中的一個instance，命名為example，並提供一個OS，使用instance類型為t2.micro
+# 定義EC2中的一個instance，命名為example，並提供一個OS，使用instance類型為t3.micro
 resource "aws_instance" "example" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
