@@ -2,11 +2,11 @@ terraform {
   # Assumes s3 bucket and dynamo DB table already set up
   # See /code/03-basics/aws-backend
   backend "s3" {
-    bucket         = "terraform-state-jeeset-pra"
-    key            = "06-organization-and-modules/web-app/terraform.tfstate-jeeset"
-    region         = "ap-east-2"
+    bucket       = "terraform-state-jeeset-pra"
+    key          = "06-organization-and-modules/web-app/terraform.tfstate-jeeset"
+    region       = "ap-east-2"
     use_lockfile = true
-    encrypt        = true
+    encrypt      = true
   }
 
   required_providers {

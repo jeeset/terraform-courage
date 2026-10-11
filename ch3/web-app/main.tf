@@ -1,10 +1,10 @@
 # 假設 S3 bucket 未建，請先apply一次 ch3/aws-backend/main.tf
-terraform { 
+terraform {
   backend "s3" {
-    bucket         = "terraform-state-jeeset-pra"
-    key            = "tf-infra/terraform.tfstate"
-    region         = "ap-east-2"
-    encrypt        = true
+    bucket  = "terraform-state-jeeset-pra"
+    key     = "tf-infra/terraform.tfstate"
+    region  = "ap-east-2"
+    encrypt = true
   }
   # 要用甚麼provider
   required_providers {
@@ -97,9 +97,9 @@ resource "aws_lb_listener" "http" {
     type = "fixed-response"
 
     fixed_response {
-      content_type = "text/plain" # 回傳純文字
+      content_type = "text/plain"          # 回傳純文字
       message_body = "404: page not found" # 回傳的內容
-      status_code  = 404 # HTTP 狀態碼：找不到頁面
+      status_code  = 404                   # HTTP 狀態碼：找不到頁面
     }
   }
 }
@@ -142,7 +142,7 @@ resource "aws_lb_listener_rule" "instances" {
 
   # 優先順序：數字越小越先比對，範圍 1～50000
   # 有多條規則時，會從小到大逐一檢查，符合第一條就執行，不再往下比
-  priority     = 100
+  priority = 100
   # 什麼樣的請求符合這條規則
   condition {
     path_pattern {
@@ -199,14 +199,14 @@ resource "aws_route53_zone" "primary" {
 # 在託管區域裡新增一筆 DNS 紀錄，把網域指向負載平衡器
 resource "aws_route53_record" "root" {
   zone_id = aws_route53_zone.primary.zone_id # 加在哪個託管區域
-  name    = "devopsdeployed.com" # 紀錄名稱，這裡是根網域（不含 www）
-  type    = "A" # A 紀錄：網域 → IP 位址
+  name    = "devopsdeployed.com"             # 紀錄名稱，這裡是根網域（不含 www）
+  type    = "A"                              # A 紀錄：網域 → IP 位址
 
   # 別名（alias）：AWS 特有功能，直接指向 AWS 資源，而不是寫死 IP
   alias {
     name                   = aws_lb.load_balancer.dns_name # 負載平衡器的 DNS 名稱
-    zone_id                = aws_lb.load_balancer.zone_id # 負載平衡器所屬的託管區域 ID（AWS 規定要填
-    evaluate_target_health = true # 負載平衡器不健康時，DNS 不回應這筆紀錄
+    zone_id                = aws_lb.load_balancer.zone_id  # 負載平衡器所屬的託管區域 ID（AWS 規定要填
+    evaluate_target_health = true                          # 負載平衡器不健康時，DNS 不回應這筆紀錄
   }
 }
 

@@ -1,4 +1,4 @@
-terraform { 
+terraform {
   # 要用甚麼provider
   required_providers {
     aws = {
